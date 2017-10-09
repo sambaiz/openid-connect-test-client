@@ -61,4 +61,4 @@ https://localhost:3000/verify?token=****
 
 ## Article
 
-[](https://www.sambaiz.net/article/136/)
+[OpenID ConnectのIDトークンの内容と検証](https://www.sambaiz.net/article/136/)
