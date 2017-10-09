@@ -11,7 +11,7 @@ $ sh genTestCert.sh
 $ CLIENT_ID=*** CLIENT_SECRET=*** node index.js
 ```
 
-### Auth
+### Request ID Token
 
 https://localhost:3000/auth 
 
@@ -54,11 +54,14 @@ https://localhost:3000/verify?token=****
 ```
 {
   "ok": true,
+  "iss": "https://accounts.google.com",
+  "aud": "*****",
+  "exp": 1507551757,
   "digestInfoDER": "*****",
-  "hash": "******"
+  "hash": "*****"
 }
 ```
 
 ## Article
 
-[OpenID ConnectのIDトークンの内容と検証](https://www.sambaiz.net/article/136/)
+[OpenID ConnectのIDトークンの内容と検証 - sambaiz-net](https://www.sambaiz.net/article/136/)

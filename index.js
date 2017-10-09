@@ -76,6 +76,9 @@ app.get('/verify', async (req, res) => {
   const idTokenHeader = JSON.parse(
     Buffer.from(token.split('.')[0], 'base64').toString()
   );
+  const idTokenPayload = JSON.parse(
+    Buffer.from(token.split('.')[1], 'base64').toString()
+  );
   const signature = token.split('.')[2];
 
   const cert = await requestCert();
@@ -99,7 +102,16 @@ app.get('/verify', async (req, res) => {
   res.writeHead(200);
   res.end(JSON.stringify({
     // TODO: check digestAlgorithm
-    ok: digestInfoDER.endsWith(hash),
+    ok: (
+          idTokenPayload.iss === 'https://accounts.google.com' || 
+          idTokenPayload.iss === 'accounts.google.com'
+        ) &&
+        idTokenPayload.aud === CLIENT_ID &&
+        idTokenPayload.exp > new Date().getTime() / 1000 &&
+        digestInfoDER.endsWith(hash),
+    iss: idTokenPayload.iss,
+    aud: idTokenPayload.aud,
+    exp: idTokenPayload.exp,
     digestInfoDER,
     hash,
   }));
